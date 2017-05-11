@@ -27,3 +27,9 @@
 *.exe
 *.out
 *.app
+
+# Others
+*.json
+*_data.txt
+*.corpus
+*.data
