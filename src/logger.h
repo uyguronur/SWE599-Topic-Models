@@ -2,6 +2,7 @@
 #define LOG_H
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -27,6 +28,10 @@ public:
         if(LOGCFG.headers) {
             operator << ("["+getLabel(type)+"]\t");
         }
+    }
+    LOG(int itr){
+        msglevel = DEBUG;
+        operator << ("[ITR:"+std::to_string(itr)+"]\t");
     }
     ~LOG() {
         if(opened) {

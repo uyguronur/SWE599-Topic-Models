@@ -33,3 +33,5 @@
 *_data.txt
 *.corpus
 *.data
+*.csv
+src/data/LdaResults/*

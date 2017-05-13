@@ -5,7 +5,8 @@
 
 struct Word
 {
-    int category;
+    int topic;
+    int vocabulary_index;
     std::string word;
 };
 

@@ -3,6 +3,7 @@
 
 #include "document.h"
 #include "logger.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -23,7 +24,15 @@ Document::Document(std:: string name, std::ifstream *stream) : _name(name)
     string word;
     while (*stream >> word)
     {
-        _words.push_back({-1,word});
+        auto cleared_word = Utils::clear_word(word);
+        if(cleared_word.length() <= 3)
+        {
+            _ignored_words.push_back(word);
+        }
+        else
+        {
+            _words.push_back({-1, -1, cleared_word});
+        }
     }
 }
 
@@ -40,4 +49,9 @@ int Document::get_total_words()
 string Document::get_name()
 {
     return _name;
+}
+
+vector<string>* Document::get_ignored_words()
+{
+    return &_ignored_words;
 }

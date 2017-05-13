@@ -1,7 +1,7 @@
 CC = g++ -std=c++11 -Wall
 
-LSOURCE = main.cpp document.cpp corpus.cpp
-LHEADER = word.h document.h logger.h corpus.h
+LSOURCE = main.cpp document.cpp corpus.cpp lda.cpp utils.cpp
+LHEADER = word.h document.h logger.h corpus.h lda.h utils.h
 
 mac: $(LSOURCE) $(HEADER)
 	  $(CC) $(LSOURCE) -o main.out
