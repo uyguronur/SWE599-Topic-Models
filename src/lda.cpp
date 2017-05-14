@@ -41,6 +41,7 @@ LDA::LDA(Corpus *corpus, int iterations, int total_topics, double alpha, double 
         }
         _document_words_count[i] = total_words;
     }
+    save_result(0);
 }
 
 void LDA::start()
