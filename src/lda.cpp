@@ -47,7 +47,6 @@ void LDA::start()
 {
     for (itr = 1; itr <= _iterations; itr++)
     {
-        LOG(itr) << " ";
         for(auto doc = 0; doc < _total_docs; doc++)
         {
             auto word_size = _corpus->get_number_of_words(doc);
@@ -64,19 +63,24 @@ void LDA::start()
 int LDA::gibbs_sample(int doc, int word)
 {
     LOG(itr) << "Sampling doc: " << doc << " word: " << word;
+
+    //remove current one from all the assinments
     int old_topic = _topic_assignments[doc][word];
     _document_topics_count[doc][old_topic]--;
     _topic_vocabulary_count[old_topic][_word_indexes[doc][word]]--;
     _topic_words_count[old_topic]--;
     _document_words_count[doc]--;
     double p[_total_topics];
+
+    //compute conditional properties for each topic with other words
     for (auto k = 0; k < _total_topics; k++)
     {
         p[k] = (_topic_vocabulary_count[k][_word_indexes[doc][word]] + _beta) /
         (_topic_words_count[k] + _total_vocabulary * _beta) *
         (_document_topics_count[doc][k] + _alpha);
-        // / (_document_words_count[doc] + _total_topics);
     }
+
+    //find the expected topic
     for(auto k = 1; k < _total_topics; k++)
     {
         p[k] += p[k-1];
@@ -157,7 +161,6 @@ void LDA::save_result(int itr)
 
 LDA::~LDA()
 {
-    delete[] _topic_vocabulary_count;
     for (auto i = 0; i < _total_docs; i++)
     {
         delete[] _word_indexes[i];
@@ -171,6 +174,7 @@ LDA::~LDA()
     {
         delete[] _topic_vocabulary_count[i];
     }
+    delete[] _topic_vocabulary_count;
     delete[] _topic_words_count;
     delete[] _document_words_count;
 }
