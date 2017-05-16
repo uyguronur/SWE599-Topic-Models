@@ -31,7 +31,6 @@
 # Others
 *.json
 *_data.txt
-*.corpus
 *.data
 *.csv
 src/data/LdaResults/*
